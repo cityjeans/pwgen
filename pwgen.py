@@ -1,14 +1,11 @@
 import string
 import secrets
 
-requirements_input = [False, False, False, False]
-pw_requirements = string.ascii_lowercase
-available_requirements = [string.ascii_uppercase, string.digits, string.punctuation]
+requirements = [False, False, False, False]
 input_prompts = ["Use uppercase letters? (Y/n): ","Use numbers? (Y/n): ","Use punctuation? (Y/n): ","Length of password? (integer above 6, default: 16): "]
 pw_length = 16
 
 def get_password_requirements():
-    global pw_requirements
     def get_boolean_input(prompt):
         inp = ""
         while True:
@@ -31,8 +28,7 @@ def get_password_requirements():
 
     for i in range(3):
         if(get_boolean_input(input_prompts[i])):
-            requirements_input[i] = True
-            pw_requirements += str(available_requirements[i])
+            requirements[i] = True
     get_int_input()
 
 def generate():
@@ -47,7 +43,7 @@ def generate():
         s = lowercase 
 
         for i in range(3):
-            if(requirements_input[i]):
+            if(requirements[i]):
                 s += intermediate[i]
 
         password =  ''.join(secrets.choice(s) for i in range(pw_length))
