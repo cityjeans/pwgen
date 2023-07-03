@@ -3,50 +3,64 @@ import secrets
 import argparse
 import re
 
-#third party, must be installed with pip, apt, etc
-import requests
+# third party dependencies
+#import requests
+from urllib.request import urlopen
 
 parser = argparse.ArgumentParser(
                     prog='pwgen',
                     description='Generates a secure password')
-parser.add_argument('-u', '--uppercase', action='store_true') # Uppercase
-parser.add_argument('-d', '--digits', action='store_true') # Digits
-parser.add_argument('-s', '--symbols', action='store_true') # symbols 
-parser.add_argument('-l', '--length') # length
-parser.add_argument('-w', '--words', action='store_true') # dictionary words
-
+parser.add_argument('-u', '--uppercase', action='store_true')   # Uppercase
+parser.add_argument('-d', '--digits', action='store_true')      # Digits
+parser.add_argument('-s', '--symbols', action='store_true')     # symbols 
+parser.add_argument('-l', '--length')                           # length
+parser.add_argument('-w', '--words', action='store_true')       # dictionary words
 args = parser.parse_args()
 
 pw_length = 16
+words_amount = 4
 if(args.length != None):
     pw_length = int(args.length)
+    if args.words:
+        words_amount = int(args.length)
 
-word_list = None 
-
-def fetch_words():
-    global word_list
-    meaningpedia_response = requests.get("https://meaningpedia.com/5-letter-words?show=all")
-    pattern = re.compile(r'<span itemprop="name">(\w+)</span>')
-    word_list = pattern.findall(meaningpedia_response.text)
+def fetch_words(word_list=[]):
+    url = "https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt"
+    with urlopen(url) as file:
+        for line in file:
+            line_parse = line.split()
+            word_list.append(line_parse[1].decode('utf-8'))
+    return word_list
 
 def generate():
     lowercase   = ''.join(secrets.choice(string.ascii_lowercase)    for i in range(64))
     uppercase   = ''.join(secrets.choice(string.ascii_uppercase)    for i in range(64))
     digits      = ''.join(secrets.choice(string.digits)             for i in range(64))
     symbols     = ''.join(secrets.choice(string.punctuation)        for i in range(64))
-    combined_sequence = lowercase 
+    combined_sequence = None
+    word_list = fetch_words()
+    words = [secrets.choice(word_list) for x in range(words_amount)]
     
-    if(args.words):
-        fetch_words()
-        password = '-'.join(secrets.choice(word_list) for i in range(4))
+    if(args.uppercase):
+        combined_sequence = uppercase
+        words = [i.capitalize() for i in words]
+    if(args.digits):
+        combined_sequence += digits
+        words.insert(0, digits[0:2])
+    if args.symbols:
+        combined_sequence += symbols 
+        words.append(symbols[0:2])
+    if args.words:
+        password = '-'.join(words[0:words_amount])
+        if args.symbols:
+            password += words[-1]
     else:
-        if(args.uppercase):
-            combined_sequence += uppercase
-        if(args.digits):
-            combined_sequence += digits
-        if(args.symbols):
-            combined_sequence += symbols 
-        password =  ''.join(secrets.choice(combined_sequence) for i in range(pw_length))
+        try:
+            combined_sequence += lowercase
+        except TypeError:
+            combined_sequence = lowercase
+
+        password = ''.join(secrets.choice(combined_sequence) for i in range(pw_length))
     return password
 
 print(generate())
