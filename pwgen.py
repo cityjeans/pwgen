@@ -20,7 +20,7 @@ def generate():
     lowercase   = ''.join(secrets.choice(string.ascii_lowercase)    for i in range(64))
     uppercase   = ''.join(secrets.choice(string.ascii_uppercase)    for i in range(64))
     digits      = ''.join(secrets.choice(string.digits)             for i in range(64))
-    symbols     = ''.join(secrets.choice(string.punctuation)        for i in range(64))
+    symbols     = ''.join(secrets.choice('/[]=!@#$%&*()_')        for i in range(64))
     combined_sequence = None
     words = [""]
     if args.words:
@@ -46,9 +46,11 @@ def generate():
             combined_sequence = symbols
         words.append(symbols[0:2])
     if args.words:
-        password = '-'.join(words[0:words_amount])
         if args.symbols:
+            password = '-'.join(words[0:-2])
             password += words[-1]
+        else:
+            password = '-'.join(words)
     else:
         try:
             combined_sequence += lowercase
