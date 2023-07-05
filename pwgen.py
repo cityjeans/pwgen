@@ -21,42 +21,25 @@ def generate():
     uppercase   = ''.join(secrets.choice(string.ascii_uppercase)    for i in range(64))
     digits      = ''.join(secrets.choice(string.digits)             for i in range(64))
     symbols     = ''.join(secrets.choice('/[]=!@#$%&*()_')        for i in range(64))
-    combined_sequence = None
+    combined_sequence = ""
     words = [""]
     if args.words:
         word_list = fetch_words()
         words = [secrets.choice(word_list) for x in range(words_amount)]
     
     if(args.uppercase):
-        try:
-            combined_sequence += uppercase
-        except TypeError:
-            combined_sequence = uppercase
+        combined_sequence += uppercase
         words = [i.capitalize() for i in words]
     if(args.digits):
-        try:
-            combined_sequence += digits
-        except TypeError:
-            combined_sequence = digits
+        combined_sequence += digits
         words.insert(0, digits[0:2])
     if args.symbols:
-        try:
-            combined_sequence += symbols
-        except TypeError:
-            combined_sequence = symbols
+        combined_sequence += symbols
         words.append(symbols[0:2])
     if args.words:
-        if args.symbols:
-            password = '-'.join(words[0:-2])
-            password += words[-1]
-        else:
-            password = '-'.join(words)
+        password = '-'.join(words)
     else:
-        try:
-            combined_sequence += lowercase
-        except TypeError:
-            combined_sequence = lowercase
-
+        combined_sequence += lowercase
         password = ''.join(secrets.choice(combined_sequence) for i in range(pw_length))
     return password
 
