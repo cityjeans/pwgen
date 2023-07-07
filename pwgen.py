@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import string
 import secrets
 import argparse
@@ -20,7 +21,7 @@ def generate():
     lowercase   = ''.join(secrets.choice(string.ascii_lowercase)    for i in range(64))
     uppercase   = ''.join(secrets.choice(string.ascii_uppercase)    for i in range(64))
     digits      = ''.join(secrets.choice(string.digits)             for i in range(64))
-    symbols     = ''.join(secrets.choice('/[]=!@#$%&*()_')        for i in range(64))
+    symbols     = ''.join(secrets.choice('/=!@#$%&*()')        for i in range(64))
     combined_sequence = ""
     words = [""]
     if args.words:
