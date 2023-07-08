@@ -8,8 +8,13 @@ import re
 #import requests
 from urllib.request import urlopen
 
+def fetch_local_words(word_list=[]):
+    with open("eff_words.txt", "r") as file:
+        for line in file:
+            word_list.append(line)
+    return word_list
 
-def fetch_words(word_list=[]):
+def fetch_url_words(word_list=[]):
     url = "https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt"
     with urlopen(url) as file:
         for line in file:
@@ -17,7 +22,7 @@ def fetch_words(word_list=[]):
             word_list.append(line_parse[1].decode('utf-8'))
     return word_list
 
-def generate():
+def generate(word_list):
     lowercase   = ''.join(secrets.choice(string.ascii_lowercase)    for i in range(64))
     uppercase   = ''.join(secrets.choice(string.ascii_uppercase)    for i in range(64))
     digits      = ''.join(secrets.choice(string.digits)             for i in range(64))
@@ -57,10 +62,12 @@ if __name__ == "__main__":
 
     pw_length = 16
     words_amount = 4
-    
+
     if(args.length != None):
         pw_length = int(args.length)
         if args.words:
             words_amount = int(args.length)
 
-    print(generate())
+
+print(generate(fetch_local_words()))
+
