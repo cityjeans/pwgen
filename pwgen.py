@@ -30,9 +30,8 @@ def generate(word_list):
     combined_sequence = ""
     words = [""]
     if args.words:
-        word_list = fetch_words()
         words = [secrets.choice(word_list) for x in range(words_amount)]
-    
+
     if(args.uppercase):
         combined_sequence += uppercase
         words = [i.capitalize() for i in words]
