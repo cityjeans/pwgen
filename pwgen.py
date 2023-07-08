@@ -3,7 +3,6 @@ import string
 import secrets
 import argparse
 
-# third party dependencies
 #import requests
 from urllib.request import urlopen
 
