@@ -6,13 +6,15 @@ import argparse
 #import requests
 from urllib.request import urlopen
 
-def fetch_local_words(word_list=[]):
+def fetch_local_words():
+    word_list = [""]
     with open("eff_words.txt", "r") as file:
         for line in file:
             word_list.append(line)
     return word_list
 
-def fetch_url_words(word_list=[]):
+def fetch_url_words():
+    word_list = [""]
     url = "https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt"
     with urlopen(url) as file:
         for line in file:
@@ -65,6 +67,7 @@ if __name__ == "__main__":
         if args.words:
             words_amount = int(args.length)
 
+eff_word_list = fetch_local_words()
 
-print(generate(fetch_local_words()))
+print(generate(eff_word_list))
 
