@@ -2,7 +2,6 @@
 import string
 import secrets
 import argparse
-import re
 
 # third party dependencies
 #import requests
