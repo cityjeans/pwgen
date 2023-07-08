@@ -30,10 +30,10 @@ def generate(word_list):
     if args.words:
         words = [secrets.choice(word_list) for x in range(words_amount)]
 
-    if(args.uppercase):
+    if args.uppercase:
         combined_sequence += uppercase
         words = [i.capitalize() for i in words]
-    if(args.digits):
+    if args.digits:
         combined_sequence += digits
         words.insert(0, digits[0:2])
     if args.symbols:
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     pw_length = 16
     words_amount = 4
 
-    if(args.length != None):
+    if args.length is not None:
         pw_length = int(args.length)
         if args.words:
             words_amount = int(args.length)
