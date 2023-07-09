@@ -10,7 +10,7 @@ def fetch_local_words():
     word_list = [""]
     with open("eff_words.txt", "r") as file:
         for line in file:
-            word_list.append(line)
+            word_list.append(line.rstrip())
     return word_list
 
 def fetch_url_words():
@@ -68,6 +68,5 @@ if __name__ == "__main__":
             words_amount = int(args.length)
 
 eff_word_list = fetch_local_words()
-
-print(generate(eff_word_list))
-
+for i in range(25):
+    print(generate(eff_word_list))
