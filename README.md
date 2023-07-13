@@ -10,9 +10,9 @@ You may of course also run the script directly with python using `python3 pwgen.
 Simply run it with your shell as any other executable file using `./pwgen.py`<br>
 You may add any combination of the available arguments, these are:<br>
 
-    -u,       --uppercase       use uppercase letters in the password
-    -d,       --digits          use digits (numbers 0 to 9) in the password
-    -s,       --symbols         usespecial symbols in the password
-    -w,       --word            use words in the password
-    -l <int>, --length <int>    set the length of the password 
-                                if -w is also passed, this specifies the amount of words
+      -h, --help        show this help message and exit
+      -u, --uppercase   use uppercase letters in the password
+      -d, --digits      use digits (numbers 0 to 9) in the password
+      -s, --symbols     use special symbols in the password
+      -w, --words       use english words in the password
+      -l x, --length x  set the length of the password
