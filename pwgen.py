@@ -9,7 +9,7 @@ from urllib.request import urlopen
 def fetch_words():
     word_list = [""]
     try:
-        with open("eff_words.txt", "r") as file:
+        with open("words.txt", "r") as file:
             for line in file:
                 word_list.append(line.rstrip())
     except FileNotFoundError:
@@ -43,27 +43,27 @@ def generate(word_list):
         password = '-'.join(words)
     else:
         combined_sequence += lowercase
-        password = ''.join(secrets.choice(combined_sequence) for i in range(int(args.length)))
+        password = ''.join(secrets.choice(combined_sequence) for i in range(args.length))
 
     return password
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
                         prog='pwgen',
-                        description='Generates a secure password')
-    parser.add_argument('-u', '--uppercase', action='store_true', help='use uppercase letters in the password')   # Uppercase
-    parser.add_argument('-d', '--digits', action='store_true', help='use digits (numbers 0 to 9) in the password')      # Digits
-    parser.add_argument('-s', '--symbols', action='store_true', help='use special symbols in the password')     # symbols 
-    parser.add_argument('-w', '--words', action='store_true', help='use english words in the password')       # dictionary words
-    parser.add_argument('-l', '--length', default=16, help="set the length of the password.")                           # length
+                        description='Generates strong, secure passwords.')
+    parser.add_argument('-u', '--uppercase', action='store_true', help='use uppercase letters in the password')     # Uppercase
+    parser.add_argument('-d', '--digits', action='store_true', help='use digits (numbers 0 to 9) in the password')  # Digits
+    parser.add_argument('-s', '--symbols', action='store_true', help='use special symbols in the password')         # symbols 
+    parser.add_argument('-w', '--words', action='store_true', help='use english words in the password')             # dictionary words
+    parser.add_argument('-l', '--length', type=int, default=16, metavar='x', help="set the length of the password")                        # length
     args = parser.parse_args()
 
     words_amount = 4
-    eff_word_list = [""]
+    word_list = [""]
     if args.words:
-        eff_word_list = fetch_words()
+        word_list = fetch_words()
         if args.length != 16:
             words_amount = int(args.length)
 
 for i in range(25):
-    print(generate(eff_word_list))
+    print(generate(word_list))
