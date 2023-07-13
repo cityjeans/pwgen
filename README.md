@@ -3,7 +3,7 @@
 
 This script runs in your unix shell "natively" so long as you have installed python3.<br>
 There are no third party dependencies (other than python), so you can essentially "drag and drop" the script into `/usr/local/bin` or wherever else you like putting your scripts, as long as you run `chmod a+x pwgen.py` first.<br>
-I recommend renaming the file to simply `pwgen` if you are to put this script in your PATH. This is what i have already done for you on the release.<br>
+I recommend renaming the file to simply `pwgen` if you are to put this script in your PATH. This is already done out of the box on the release<br>
 You may of course also run the script directly with python using `python3 pwgen.py`.
 
 <h2>Usage</h2>
