@@ -1,14 +1,21 @@
-<h1>pwgen</h1>
-<h4>Python password generator</h4>
+# Python password generator
 
-This script runs in your unix shell "natively" so long as you have installed python3.<br>
-There are no third party dependencies (other than python), so you can essentially "drag and drop" the script into `/usr/local/bin` or wherever else you like putting your scripts, as long as you run `chmod a+x pwgen.py` first.<br>
-I recommend renaming the file to simply `pwgen` if you are to put this script in your PATH. This is already done out of the box on the release<br>
-You may of course also run the script directly with python using `python3 pwgen.py`.
+This script generates a set of passwords in your text terminal.<br>
 
-<h2>Usage</h2>
-Simply run it with your shell as any other executable file using `./pwgen.py`<br>
-You may add any combination of the available arguments, these are:<br>
+## Installation
+1. Download the latest release, or clone the repository.
+2. Run `chmod a+x pwgen.py` to set execute permissions.
+4. *optional: Move the file somewhere in your PATH. I recommend `/usr/local/bin/` on Linux.
+5. *optional: You may also want to rename the file from `pwgen.py` to simply `pwgen`.*
+
+### Dependencies
+- `python3`
+- *optional: Any bourne-compatible shell*
+
+### Usage 
+Run in your shell by calling `./pwgen.py`  
+You may also run it by calling `python3 pwgen.py`  
+You may add any combination of the available arguments, these are:  
 
       -h, --help        show this help message and exit
       -u, --uppercase   use uppercase letters in the password
