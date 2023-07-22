@@ -1,3 +1,8 @@
+// DO NOT EVER USE THIS IN PRODUCTION!!!!!!!
+// SHELL_EXEC() ALLOWS ARBITRARY SHELL EXECUTION
+// BY PASSING "<int> && <arbitraryCommand>" INTO THE USER INPUT FOR THE LENGTH VARIABLE
+// THIS IS NOT SANITIZED
+
 <html>
 <body>
 
@@ -32,6 +37,7 @@ if (!empty($_POST["length"]))
 	$args .= 'l ' . $_POST["length"];
 }
 if ($hasargs) { $args = '-' . $args; }
+// THIS IS DANGEROUS IN PROD
 $output = shell_exec("./pwgen.py $args");
 echo "<pre>". $output."</pre>";
 ?>
